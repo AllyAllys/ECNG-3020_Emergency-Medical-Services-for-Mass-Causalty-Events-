@@ -35,6 +35,7 @@ router.post('/create',function(req,res,next){
 
 });
 
+
 //Get a specific Admin Information
 //Get a specific Admin Information
 router.get("/:id",function(req,res){
@@ -49,6 +50,7 @@ router.get("/:id",function(req,res){
         res.send('Cannot find User');
     });
 });
+
 
 //Update Admin users
 /* router.put('/:userid',function(req,res,next){

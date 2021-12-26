@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const cors = require ('cors');
+
 const indexRouter = require('./Routes/index')
 const app = express()
+
 
 //Cors middleware 
 app.use(cors())
@@ -11,8 +13,13 @@ app.use(cors())
 app.use(express.urlencoded({extended: false})); 
 app.use(express.json());
 
+
+
 //Connecting to MongoDB
-mongoose.connect("mongodb://localhost/EMS")
+mongoose.connect("mongodb://localhost/EMS",()=>{
+    console.log("Database Connected")
+},
+e=> console.error(e))
 
 //Mongoose Schema Models
 const Users = require("./DataModels/Users.model")
@@ -40,17 +47,17 @@ const LawenforcementModel = require('./DataModels/Lawenforcement.model')
 //Routes 
 const Admins= require('./Routes/Admins')
 const User = require('./Routes/Users')
-
-
-
-
-
-
-
+const Order = require('./Routes/Medicalsupplies_order')
+const Items = require('./Routes/Medicalsupplies_itemrequest')
+const Itemdescription= require('./Routes/Itemdescription')
 
 //Http
 app.use('/Admins',Admins)
 app.use('/Users',User)
+app.use('/Orders',Order)
+app.use('/Itemrequests',Items)
+app.use('/Itemdescriptions',Itemdescription)
+
 // setup of the view engine
 app.set('view engine','ejs')
 app.set('views',__dirname + '/views')
@@ -61,13 +68,30 @@ app.set('views',__dirname + '/views')
 app.listen(3000)
 app.use('/',indexRouter)
 
-
-
 app.use (express.static('public'))
-//run()
-//async function run(){
-  //  const file = await volunteers.find()
-  //  .populate("UserID")
-  //  console.log(file)
-//}   
+/* 
+run()
+async function run(){
+ const file = await incident_dashboard.find()
+ .populate("PublicID")
+  console.log(file)
+}   
+*/ 
+//ERRORS
 
+app.use((req,res,next)=>{
+    const error = new Error ('Not found');
+    error.status=404;
+    next(error);
+})
+
+app.use((error,req,res,next)=>{
+    res.status(error.status || 500);
+    res.json({
+        error:{
+            message:error.message
+        }
+    });
+
+
+});

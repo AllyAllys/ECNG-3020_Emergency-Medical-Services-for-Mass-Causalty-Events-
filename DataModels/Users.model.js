@@ -11,7 +11,7 @@ const usersSchema= new mongoose.Schema({
         required:true,
     },
     Userclass: {
-        type: Boolean,
+        type: String,
         
     },
     Firstname: String,
@@ -46,6 +46,5 @@ const usersSchema= new mongoose.Schema({
         default: new Date(),
     } ,
 })
-
 
 module.exports =mongoose.model("users",usersSchema)
