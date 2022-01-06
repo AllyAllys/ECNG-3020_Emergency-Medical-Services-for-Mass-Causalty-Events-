@@ -2,6 +2,7 @@ const mongoose = require ("mongoose")
 
 const chatboxSchema = new mongoose.Schema({
     
+    _id: mongoose.Schema.Types.ObjectId,
     TextMessage: String,
     Time: {
         type:Date,
@@ -10,11 +11,13 @@ const chatboxSchema = new mongoose.Schema({
     
     FirstID:{
         type: mongoose.SchemaTypes.ObjectId,
-        ref:"first_responders"
+        ref:"first_responders",
+        
     },
     EmerID:{
         type: mongoose.SchemaTypes.ObjectId,
-        ref:"emergency_responders"
+        ref:"emergency_responders",
+        
     }
 })
 

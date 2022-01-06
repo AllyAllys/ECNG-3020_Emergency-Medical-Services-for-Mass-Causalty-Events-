@@ -1,7 +1,6 @@
 {
   "name": "EMS",
   "version": "1.0.0",
-  "description": "",
   "main": "script.js",
   "scripts": {
     "devStart": "nodemon script.js"
@@ -20,6 +19,16 @@
     "mongoose-extend-schema": "^1.0.0"
   },
   "devDependencies": {
+    "dotenv-webpack": "^7.0.3",
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllyAllys/ECNG-3020_Emergency-Medical-Services-for-Mass-Causalty-Events-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AllyAllys/ECNG-3020_Emergency-Medical-Services-for-Mass-Causalty-Events-/issues"
+  },
+  "homepage": "https://github.com/AllyAllys/ECNG-3020_Emergency-Medical-Services-for-Mass-Causalty-Events-#readme",
+  "description": ""
 }

@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 
 
 const PatientVictimIdentificationSchema= new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     VolunteerID: {
         type: mongoose.SchemaTypes.ObjectId,
         ref:"volunteers"
@@ -10,13 +11,38 @@ const PatientVictimIdentificationSchema= new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref:"healthstaffs"
     },
-    Firstname:String,
-    Surname:String,
-    DOB:String,
+    Firstname:{
+        type:String,
+        required:true,
+
+    },
+    Surname:{
+        type:String,
+        required:true
+
+    },
+    DOb:{
+        type:String,
+        required:true
+
+    },
     Email:String,
-    Gender:String,
-    IDNumber:Number,
-    PhoneNo:String,
+    Gender:{
+        type:String,
+        required:true
+
+    },
+    IDNumber:{
+        type:Number,
+        required:true
+
+    },
+    PhoneNo:{
+        type:String,
+        required:true,
+
+    
+    },
     InjuryDescription:String,
     InjuryTreatment:String,
     ModifiedDate:{

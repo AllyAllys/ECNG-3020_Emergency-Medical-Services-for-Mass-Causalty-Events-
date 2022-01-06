@@ -3,7 +3,9 @@ const router = express.Router()
 const mongoose = require ('mongoose')
 const User_model= require('../DataModels/Users.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const Admin_model= require('../DataModels/Admins.model')
+
 
 //Get Users listing
 router.get('/list', function(req, res, next) {
@@ -11,7 +13,7 @@ router.get('/list', function(req, res, next) {
       if(err)
       res.send(err);
       else
-      res.send({status: 500, outcome: usersresponse.length, admin_users: usersresponse});
+      res.send({status: 500, Count: usersresponse.length, admin_users: usersresponse});
     })
 });
 
@@ -19,7 +21,6 @@ router.get('/list', function(req, res, next) {
 router.get("/:id",function(req,res,next){
     User_model.findOne({_id:req.params.id})
     
-
     .then(function(dbuser)
     {
 
@@ -50,7 +51,7 @@ router.post('/signup',function(req,res,next){
                 } else{
                 
             const newUsers = new User_model({
-
+                 _id: mongoose.Types.ObjectId(),
                 Username:req.body.Username,
                 Userclass:req.body.Userclass,
                 Firstname:req.body.Firstname,
@@ -101,8 +102,20 @@ router.post('/login',(req,res,next)=>{
                 });
             }
             if (result){
+                const token = jwt.sign(
+               {
+                    Username: user[0].Username,
+                    userId:user[0]._id
+                },
+                "secret",
+                {
+                    expiresIn: "1h"
+                }
+                );
+            
                 return res.status(200).json({
-                    message:"Authorization sucessful"
+                    message:"Authorization sucessful",
+                    token:token
                 });
             }
             res.status(401).json({

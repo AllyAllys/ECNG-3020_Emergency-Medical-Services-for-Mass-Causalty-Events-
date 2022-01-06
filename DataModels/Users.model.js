@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 
 
 const usersSchema= new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     
     Username:{
         type:String,

@@ -3,16 +3,23 @@ const mongoose = require("mongoose")
 
 
 const ambulanceSchema= new mongoose.Schema({
+
+    _id: mongoose.Schema.Types.ObjectId,
     DispatcherID:
     { type: mongoose.SchemaTypes.ObjectId,
-      ref:"ems_dispatcher"
+      ref:"ems_dispatcher",
+     
     },
     Address:{
         Street:String,
         City:String,
-        ZipCode:Number
+        ZipCode:Number,
+        
     },
-    Driver: String,
+    Driver: {
+        type:String,
+        required: true
+    },
     DateTime:{
         type:Date,
         default: () => Date.now(),
